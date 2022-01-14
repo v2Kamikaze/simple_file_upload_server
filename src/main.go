@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 )
 
 func handleUpload(w http.ResponseWriter, r *http.Request) {
@@ -21,7 +21,8 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 
 	defer fileFromForm.Close()
 
-	tempFile, err := ioutil.TempFile("../temp", "file_*.png")
+	tempFile, err := os.CreateTemp("../temp", "file_*.png")
+
 	if err != nil {
 		log.Fatalf("Erro ao criar arquivo temporário: %+v", tempFile)
 	}
